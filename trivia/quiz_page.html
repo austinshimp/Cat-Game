@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CatGame: The Quiz Page</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #178f53; color: white; }
+        .quiz-container { max-width: 600px; margin: 50px auto; background: white; color: black; padding: 20px; border-radius: 10px; }
+        .start-container { max-width: 600px; margin: 50px auto; background: white; color: black; padding: 20px; border-radius: 10px; }
+        .start-grid {display:inline-block;}
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn { padding: 20px; border: none; font-size: 1.2rem; cursor: pointer; color: white; border-radius: 5px; }
+        .red { background: #d89e00; } .blue { background: #d89e00; }
+        .yellow { background: #d89e00; } .green { background: #d89e00; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div id="start-screen" class ="quiz-container">
+    <h2>Welcome to the Quiz!</h2>
+    <p>Here you'll be tested on your knowledge of Big Cats! The faster you answer, the higher your score! Good luck!</p>
+    <div id="start-container" class="start-grid"></div>
+</div>
+
+<div id="game-screen" class="quiz-container hidden">
+    <h2 id="question-text">If you see this, then it broke...</h2> <!--Questions get posted here-->
+    <div id="options-container" class="options"></div>
+</div>
+
+<div id="result-screen" class="quiz-container hidden"> <!--Switches over when quiz runs out of questions-->
+    <h2>Quiz Completed!</h2>
+    <p>Your Score: <span id="score">0</span></p>
+</div>
+
+<script src="quiz.js"></script> <!--Actual quiz data-->
+</body>
+</html>
