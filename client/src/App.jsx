@@ -1,17 +1,52 @@
+import { useEffect, useState } from "react";
+
 import HomePage from "./pages/HomePage/HomePage";
+import AccountPage from "./pages/AccountPage/AccountPage";
+
+import {
+  getCurrentUser,
+  logoutUser,
+} from "./services/authService";
 
 function App() {
-  /*
-    Temporary user value.
+  const [currentUser, setCurrentUser] = useState(null);
 
-    null = guest/not logged in.
+  useEffect(() => {
+    async function restoreSession() {
+      try {
+        const data = await getCurrentUser();
 
-    Eventually the authentication system will provide the actual user.
-  */
-  const currentUser = null;
+        setCurrentUser(data.user);
+      } catch {
+        setCurrentUser(null);
+      }
+    }
 
-  function handleSignOut() {
-    console.log("Sign out will be connected to authentication later.");
+    restoreSession();
+  }, []);
+
+  async function handleSignOut() {
+    try {
+      await logoutUser();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setCurrentUser(null);
+
+      window.location.assign("/");
+    }
+  }
+
+  const currentPath = window.location.pathname;
+
+  if (currentPath === "/account") {
+    return (
+      <AccountPage
+        user={currentUser}
+        onAuthenticated={setCurrentUser}
+        onSignOut={handleSignOut}
+      />
+    );
   }
 
   return (
