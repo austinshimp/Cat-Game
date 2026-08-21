@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatGame - Game Information</title>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #222;
+        }
+
+
+        header {
+            background-color: #563d9c;
+            color: white;
+            padding: 25px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+
+        .hero {
+            background-color: #e9e3ff;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+
+        .hero p {
+            font-size: 20px;
+            max-width: 750px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+
+        .about {
+            max-width: 1000px;
+            margin: auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+
+        .about h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+
+        .about p {
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+
+        .game-modes {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px 20px 70px;
+        }
+
+
+        .game-modes h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 35px;
+        }
+
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+
+        .card {
+            background-color: white;
+            width: 300px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            text-align: center;
+        }
+
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+
+        .card p {
+            line-height: 1.6;
+        }
+
+
+        .how-to-play {
+            background-color: #ffffff;
+            padding: 60px 20px;
+        }
+
+
+        .how-to-play-content {
+            max-width: 850px;
+            margin: auto;
+        }
+
+
+        .how-to-play h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+
+        .how-to-play ol {
+            font-size: 18px;
+            line-height: 2;
+            padding-left: 30px;
+        }
+
+
+        .learn {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #e9e3ff;
+        }
+
+
+        .learn h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+
+        .learn p {
+            max-width: 800px;
+            margin: auto;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+
+            nav a {
+                margin: 0 10px;
+            }
+
+
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <header>
+        <div class="logo"> CatGame</div>
+
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Information</a>
+            <a href="#">Play Game</a>
+        </nav>
+    </header>
+
+
+    <section class="hero">
+        <h1>Welcome to CatGame</h1>
+
+
+        <p>
+            CatGame is an interactive quiz game that combines cats,
+            animals, and geography. Test your knowledge while learning
+            about different cat breeds and locations around the world.
+        </p>
+    </section>
+
+
+    <section class="about">
+        <h2>About the Game</h2>
+
+
+        <p>
+            CatGame is designed as a Kahoot-style multiple-choice game.
+            Players will be presented with questions and will need to
+            choose the correct answer from several choices. Questions
+            will focus on identifying cat breeds, recognizing animals,
+            and determining geographic locations.
+        </p>
+    </section>
+
+
+    <section class="game-modes">
+        <h2>Types of Questions</h2>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+                <h3>🌎 Guess the Location</h3>
+
+
+                <p>
+                    Players will be shown information about an animal or
+                    cat breed and will need to identify the correct country
+                    or geographic location.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <h3>🐈 Guess the Cat</h3>
+
+
+                <p>
+                    Players may be shown an image of a cat and must choose
+                    the correct breed from multiple possible answers.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <h3>📝 Guess from a Description</h3>
+
+
+                <p>
+                    Players may also receive a description containing
+                    characteristics of a cat and determine which breed
+                    matches the description.
+                </p>
+            </div>
+
+
+        </div>
+    </section>
+
+
+    <section class="how-to-play">
+        <div class="how-to-play-content">
+
+
+            <h2>How to Play</h2>
+
+
+            <ol>
+                <li>Start the CatGame.</li>
+                <li>Read the question or examine the image provided.</li>
+                <li>Select one answer from the available choices.</li>
+                <li>Find out whether your answer is correct.</li>
+                <li>Earn points for correct answers.</li>
+                <li>Continue until all questions have been completed.</li>
+            </ol>
+
+
+        </div>
+    </section>
+
+
+    <section class="learn">
+        <h2>Learn While You Play</h2>
+
+
+        <p>
+            The goal of CatGame is to make learning entertaining.
+            Players can improve their knowledge of cat breeds, animal
+            characteristics, countries, and geographic regions while
+            competing for a high score.
+        </p>
+    </section>
+
+
+    <footer>
+        <p>CatGame | Cats, Animals & Geography</p>
+    </footer>
+
+
+</body>
+
+
+</html>
+
+
