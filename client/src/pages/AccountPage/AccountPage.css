@@ -1,0 +1,220 @@
+.account-page {
+  min-height: 100vh;
+  background: #f3f0e8;
+  color: #20231f;
+}
+
+.account-main {
+  width: min(1180px, 88%);
+
+  margin: 0 auto;
+  padding: 85px 0;
+
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+
+  gap: 110px;
+  align-items: start;
+}
+
+.account-introduction {
+  padding-top: 55px;
+}
+
+.account-kicker {
+  margin: 0 0 18px;
+
+  color: #8b693d;
+
+  font-size: 0.76rem;
+  font-weight: 700;
+
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.account-introduction h1 {
+  margin: 0 0 25px;
+
+  color: #283029;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 500;
+
+  line-height: 1.02;
+
+  letter-spacing: -0.12rem;
+}
+
+.account-introduction > p:last-child {
+  max-width: 480px;
+
+  color: #686d67;
+
+  line-height: 1.75;
+}
+
+.account-panel {
+  border: 1px solid #d4cec1;
+
+  background: #f9f7f1;
+
+  padding: 38px;
+}
+
+.account-tabs {
+  margin-bottom: 38px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  border-bottom: 1px solid #d4cec1;
+}
+
+.account-tabs button {
+  padding: 13px 8px;
+
+  border: 0;
+  border-bottom: 2px solid transparent;
+
+  background: transparent;
+
+  color: #777b76;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.account-tabs button.active {
+  border-bottom-color: #33483a;
+
+  color: #33483a;
+}
+
+.form-heading {
+  margin-bottom: 28px;
+}
+
+.form-heading h2 {
+  margin: 0 0 7px;
+
+  color: #2b322b;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.form-heading p {
+  margin: 0;
+
+  color: #747973;
+
+  font-size: 0.9rem;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.account-form label {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  color: #414741;
+
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.account-form input {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid #c9c3b7;
+  border-radius: 0;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #252a25;
+
+  font-size: 0.95rem;
+}
+
+.account-form input:focus {
+  border-color: #536a58;
+}
+
+.submit-account {
+  margin-top: 8px;
+
+  padding: 14px 20px;
+
+  border: 1px solid #33483a;
+
+  background: #33483a;
+
+  color: #f7f4ec;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.submit-account:hover {
+  background: #26382d;
+}
+
+.submit-account:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+.form-message {
+  margin: 0;
+
+  color: #8e3e35;
+
+  font-size: 0.84rem;
+}
+
+@media (max-width: 850px) {
+  .account-main {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+
+    padding: 55px 0;
+  }
+
+  .account-introduction {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .account-panel {
+    padding: 26px 20px;
+  }
+}
