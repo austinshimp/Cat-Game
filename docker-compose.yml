@@ -1,0 +1,44 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  server:
+    build:
+      context: ./server
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      # "mongo" is the service name above, not localhost -- Docker's
+      # internal network resolves it for you.
+      MONGO_URI: mongodb://mongo:27017/big_cat_trivia
+      CLIENT_URL: http://localhost:5173
+      JWT_SECRET: dev_secret_change_me
+    depends_on:
+      - mongo
+    volumes:
+      - ./server:/app
+      - /app/node_modules # keeps the container's own node_modules, not the host's
+
+  client:
+    build:
+      context: ./client
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:5000
+    depends_on:
+      - server
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+volumes:
+  mongo_data:

@@ -1,0 +1,104 @@
+/*
+  Design system: "specimen catalog" — a naturalist's museum drawer.
+  Dark warm umber background, parchment panels, amber accession stamps.
+  See SpecimenPlate.jsx for the signature framed-photo element.
+*/
+:root {
+  --bg-umber: #1c130c;
+  --panel-walnut: #2c1e13;
+  --panel-walnut-light: #3a2818;
+  --parchment: #ede1c4;
+  --parchment-dim: #cbb989;
+  --amber: #c8863a;
+  --amber-bright: #e2a857;
+  --fern: #5c7a4a;
+  --fern-bright: #7a9c66;
+  --rust: #a13d2b;
+  --rust-bright: #c3543d;
+  --hairline: rgba(237, 225, 196, 0.16);
+
+  --display: "Fraunces", "Iowan Old Style", serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+
+  color-scheme: dark;
+  color: var(--parchment);
+  background: var(--bg-umber);
+  font: 17px/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-umber);
+  background-image:
+    radial-gradient(ellipse at top, rgba(200, 134, 58, 0.06), transparent 60%);
+  min-height: 100svh;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--parchment);
+  margin: 0 0 0.4em;
+  letter-spacing: 0.2px;
+}
+
+h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); }
+h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
+h3 { font-size: 1.25rem; }
+
+p {
+  margin: 0 0 1em;
+  color: var(--parchment-dim);
+}
+
+a {
+  color: var(--amber-bright);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.italic-name {
+  font-style: italic;
+  font-family: var(--display);
+  color: var(--parchment-dim);
+}
+
+button {
+  font-family: var(--body);
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber-bright);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
