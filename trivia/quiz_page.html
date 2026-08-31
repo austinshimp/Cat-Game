@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cat Trivia</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #f4f1ea;
+            color: #333;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-top: 70px; /* Space for the fixed header */
+        }
+
+        /* --- Header Navigation --- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #f4f1ea; /* Matches body background */
+            border-bottom: 1px solid #dcdcdc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e30;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e30;
+            text-decoration: none;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #4a7c59;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-btn {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-signin {
+            color: #2c3e30;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .btn-signin:hover {
+            color: #4a7c59;
+        }
+
+        .btn-create {
+            background-color: #f4f1ea;
+            color: #2c3e30;
+            border: 1px solid #2c3e30;
+        }
+
+        .btn-create:hover {
+            background-color: #4a7c59;
+            border-color: #4a7c59;
+        }
+
+        /* --- Game Container --- */
+        .game-container {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            margin: 40px auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 32px;
+            color: #2c3e30;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        p2 {
+            font-size: 14px;
+            color: #777;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            margin: 10px 0;
+            border: 1px solid #2c3e30;
+            border-radius: 2px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #2c3e30;
+            background-color: #f4f1ea;
+            transition: all 0.2s ease;
+            font-family: 'Helvetica Neue', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: #2c3e30;
+            color: #fff;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn.selected {
+            border-color: #2c3e30;
+            background-color: #2c3e30;
+            color: #fff;
+            box-shadow: 0 0 0 2px #f4f1ea, 0 0 0 4px #2c3e30;
+        }
+
+        .btn.correct {
+            background-color: #4a7c59 !important;
+            border-color: #4a7c59 !important;
+            color: white !important;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: #e0e0e0;
+            border-color: #ccc;
+            color: #777;
+        }
+
+        #timer {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #8c3b3b;
+            font-family: 'Georgia', serif;
+        }
+
+        #question-text {
+            font-size: 20px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #2c3e30;
+        }
+        
+        .result-score {
+            font-size: 64px;
+            color: #2c3e30;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- Leaderboard Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 48, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            color: #2c3e30;
+            margin-bottom: 20px;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        .leaderboard-list {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .leaderboard-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .leaderboard-list li span:first-child {
+            font-weight: bold;
+            color: #2c3e30;
+        }
+
+        .leaderboard-list li span:last-child {
+            color: #4a7c59;
+            font-weight: bold;
+        }
+
+        .leaderboard-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #dcdcdc;
+            border-radius: 2px;
+            font-size: 16px;
+            font-family: 'Helvetica Neue', sans-serif;
+            background: #f9f9f9;
+        }
+
+        .leaderboard-input:focus {
+            outline: none;
+            border-color: #2c3e30;
+            background: #fff;
+        }
+        
+        .leaderboard-input:disabled {
+            background: #e0e0e0;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .submission-msg {
+            color: #4a7c59;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+            height: 20px;
+        }
+
+        .question-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin: 15px 0 25px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: none; /* Hidden by default if no image is provided */
+        }
+
+        .question-image.active {
+        display: block;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Navigation -->
+<header class="site-header">
+    <a href="#" class="logo">Big Cat Game</a>
+    
+    <nav class="nav-links">
+        <a href="home" class="nav-link">Home</a>
+        <a href="bigcats" class="nav-link">Big Cats</a>
+        <a href="trivia" class="nav-link">Trivia</a>
+        <a href="about" class="nav-link">About</a>
+    </nav>
+
+    <div class="auth-buttons">
+        <a href="#" class="auth-btn btn-signin">Sign In</a>
+        <a href="#" class="auth-btn btn-create">Create Account</a>
+    </div>
+</header>
+
+<div class="game-container">
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <h1>Cat Trivia</h1>
+        <p>Test your knowledge of the world's great cats.</p>
+        <p2>Answer these 10 questions before the timer expires!</p2>
+        <div id="start-container"></div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="hidden">
+        <div id="timer">10</div>
+        <p id="question-text"></p>
+        <div id="options-container"></div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="hidden">
+        <h1>Quiz Results</h1>
+        <p>Your Final Score:</p>
+        <div id="score" class="result-score"></div>
+        <p>*Hint: A faster time means more points!</p>
+        <button class="btn" onclick="showLeaderboard()">View Leaderboard</button>
+        <button class="btn" onclick="location.reload()">Play Again</button>
+    </div>
+</div>
+
+<!-- Leaderboard Modal -->
+<div id="leaderboard-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h2>Top 10 Players</h2>
+        <div id="submission-msg" class="submission-msg"></div>
+        <input type="text" id="player-name" class="leaderboard-input" placeholder="Enter your name" maxlength="15" disabled>
+        <button class="btn" id="submit-btn" onclick="submitScore()" disabled>Submit Score</button>
+        <ul id="leaderboard-list" class="leaderboard-list">
+            <!-- Scores will be injected here -->
+        </ul>
+        <button class="btn" style="background:#e0e0e0; border-color:#ccc; color:#555;" onclick="closeLeaderboard()">Close</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    {
+        question: "What is a group of lions called?",
+        options: ["A pack", "A troop", "A clan", "A pride"],
+        correct: 3,
+        image: "assets/lion1.png"
+    },
+    {
+        question: "How far away can a lion's roar be heard?",
+        options: ["Up to 1 km", "Up to 8 km", "Up to 25 km", "Up to 50 km"],
+        correct: 1,
+        image: "assets/lion2.png"
+    },
+    {
+        question: "Which is the largest living cat species?",
+        options: ["Lion", "Jaguar", "Tiger", "Cougar"],
+        correct: 2,
+        image: "assets/multi1.png"
+    },
+    {
+        question: "What makes each tiger's stripe pattern unique?",
+        options: ["It's random and meaningless","It's as unique as a human fingerprint","It changes every year","It's identical within each subspecies"],
+        correct: 1,
+        image: "assets/tiger1.png"
+    },
+    {
+        question: "How does a jaguar typically kill its prey?",
+        options: ["A bite to the throat","A bite through the skull","Suffocation only","A blow from its paw"],
+        correct: 1,
+        image: "assets/jaguar2.png"
+    },
+    {
+        question: "What tells a jaguar's rosettes apart from a leopard's?",
+        options: ["Jaguar rosettes have a dot in the center","Jaguar rosettes are always solid black","Jaguars have no rosettes at all","Leopard rosettes are square-shaped"],
+        correct: 0,
+        image: "assets/jaguar1.png"
+    },
+    {
+        question: "What is the leopard known for doing with its kills?",
+        options: ["Burying them underground","Hauling them up into trees","Sharing them with other leopards","Leaving them in rivers"],
+        correct: 1,
+        image: "assets/leopard1.png"
+    },
+    {
+        question: "Which big cat has the widest distribution of any wild cat species?",
+        options: ["Tiger", "Lion", "Snow Leopard", " Leopard"],
+        correct: 3,
+        image: "assets/multi2.png"
+    },
+    {
+        question: "Why can't the snow leopard roar, despite being in genus Panthera?",
+        options: ["It has no vocal cords","The shape of its hyoid bone doesn't allow it","It chooses not to","Only males can roar"],
+        correct: 1,
+        image: "assets/snowleopard2.png"
+    },
+    {
+        question: "What does a snow leopard use its long tail for?",
+        options: ["Balance and as a wrap-around blanket","Signaling to other snow leopards only","Digging burrows","Nothing functional - just decoration"],
+        correct: 0,
+        image: "assets/snowleopard3.png"
+    }/* ,
+    {
+        question: "What is the cheetah best known for?",
+        options: ["Being the strongest big cat","Being the fastest land animal","Being the best swimmer","Being the best climber"],
+        correct: 1
+    },
+    {
+        question: "What can cheetahs do that lions and tigers cannot?",
+        options: ["Purr", "Roar", "Retract their claws fully", "Swim"],
+        correct: 2
+    },
+    {
+        question: "Which genus does the cougar belong to?",
+        options: ["Panthera", "Felis", "Puma", "Lynx"],
+        correct: 2
+    },
+    {
+        question: "What is notable about the number of names for the cougar?",
+        options: ["It has no other names","It has over 40 names in English alone","It only has scientific names","Its name changes based on age"],
+        correct: 2
+    } */
+];
+
+let currentQuestion = 0;
+let score = 0;
+let selectedOption = -1; 
+let timerInterval = null;
+let timerCurrent = 0;
+let scoreLock = 0;
+let hasSubmittedScore = false; 
+
+const questionEl = document.getElementById("question-text");
+const optionsEl = document.getElementById("options-container");
+const startEl = document.getElementById("start-container");
+const startScreen = document.getElementById("start-screen");
+const gameScreen = document.getElementById("game-screen");
+const resultScreen = document.getElementById("result-screen");
+const scoreEl = document.getElementById("score");
+const timerEl = document.getElementById("timer");
+const leaderboardModal = document.getElementById("leaderboard-modal");
+const leaderboardList = document.getElementById("leaderboard-list");
+const playerNameInput = document.getElementById("player-name");
+const submitBtn = document.getElementById("submit-btn");
+const submissionMsg = document.getElementById("submission-msg");
+
+function startGame() {
+    const btn = document.createElement("button");
+    btn.innerText = "Start Quiz";
+    btn.className = "btn";
+    btn.onclick = () => ready();
+    startEl.appendChild(btn);
+}
+
+function ready(){
+    startScreen.classList.add("hidden");
+    gameScreen.classList.remove("hidden");
+    loadQuestion();
+}
+
+function showResults() {
+    gameScreen.classList.add("hidden");
+    resultScreen.classList.remove("hidden");
+    scoreEl.innerText = score;
+    hasSubmittedScore = false; // Reset flag for new game
+}
+
+function loadQuestion() {
+    const data = quizData[currentQuestion];
+    questionEl.innerText = data.question;
+    optionsEl.innerHTML = "";
+
+    // 1. Remove any existing image first to prevent duplicates
+    const existingImg = document.getElementById("current-question-img");
+    if (existingImg) existingImg.remove();
+
+    // 2. Create image element if a source exists
+    if (data.image) {
+        const img = document.createElement("img");
+        img.src = data.image;
+        img.alt = data.question;
+        img.id = "current-question-img";
+        img.className = "question-image active";
+
+        // Insert image BEFORE the options container (after question text)
+        // We insert after the question text paragraph
+        const questionContainer = document.getElementById("game-screen");
+        // Insert after the #question-text element
+        optionsEl.before(img); 
+    }
+
+    selectedOption = -1; 
+
+    data.options.forEach((opt, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.className = "btn";
+        btn.onclick = () => selectOption(index, btn);
+        optionsEl.appendChild(btn);
+    });
+
+    startTimer();
+}
+
+function selectOption(index, btn) {
+    if (selectedOption === -2) return;
+
+    const buttons = optionsEl.querySelectorAll("button");
+    buttons.forEach(b => b.classList.remove("selected"));
+
+    btn.classList.add("selected");
+    selectedOption = index;
+    scoreLock = timerCurrent;
+}
+
+function startTimer() {
+    clearInterval(timerInterval);
+    const duration = 10;
+    const end = Date.now() + duration * 1000;
+    timerEl.textContent = duration;
+
+    function update() {
+        const remaining = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+        timerEl.textContent = remaining;
+        timerCurrent = remaining;
+        
+        if (remaining <= 0) {
+            clearInterval(timerInterval);
+            submitAnswer(); 
+        }
+    }
+
+    update();
+    timerInterval = setInterval(update, 250);
+}
+
+function submitAnswer() {
+    clearInterval(timerInterval);
+    optionsEl.querySelectorAll("button").forEach(b => b.disabled = true);
+
+    const correctBtn = optionsEl.querySelectorAll("button")[quizData[currentQuestion].correct];
+    correctBtn.classList.add("correct");
+
+    if (selectedOption !== -1 && selectedOption !== -2 && selectedOption === quizData[currentQuestion].correct) {
+        score += scoreLock * 10;
+    }
+
+    setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }, 800);
+}   
+
+// --- Leaderboard Functions ---
+
+function showLeaderboard() {
+    leaderboardModal.classList.remove("hidden");
+    renderLeaderboard();
+    
+    if (!hasSubmittedScore) {
+        playerNameInput.disabled = false;
+        submitBtn.disabled = false;
+        playerNameInput.value = "";
+        submissionMsg.innerText = "";
+        playerNameInput.focus();
+    } else {
+        playerNameInput.disabled = true;
+        submitBtn.disabled = true;
+    }
+}
+
+function closeLeaderboard() {
+    leaderboardModal.classList.add("hidden");
+}
+
+function submitScore() {
+    const name = playerNameInput.value.trim() || "Anonymous";
+    const newEntry = { name: name, score: score };
+    
+    let scores = JSON.parse(localStorage.getItem('catTriviaScores')) || [];
+    scores.push(newEntry);
+    
+    scores.sort((a, b) => b.score - a.score);
+    scores = scores.slice(0, 10);
+    
+    localStorage.setItem('catTriviaScores', JSON.stringify(scores));
+    
+    hasSubmittedScore = true;
+    
+    playerNameInput.disabled = true;
+    submitBtn.disabled = true;
+    
+    submissionMsg.innerText = "Score submitted successfully!";
+    
+    renderLeaderboard();
+}
+
+function renderLeaderboard() {
+    const scores = JSON.parse(localStorage.getItem('catTriviaScores')) || [];
+    leaderboardList.innerHTML = "";
+
+    if (scores.length === 0) {
+        leaderboardList.innerHTML = "<li style='justify-content:center; color:#888;'>No scores yet. Be the first!</li>";
+        return;
+    }
+
+    scores.forEach((entry, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span>#${index + 1} ${entry.name}</span><span>${entry.score}</span>`;
+        leaderboardList.appendChild(li);
+    });
+}
+
+// Start the game
+startGame();
+</script>
+</body>
+</html>
