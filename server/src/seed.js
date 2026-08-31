@@ -4,21 +4,6 @@ import { Cat, Question } from "./index.js";
 
 dotenv.config();
 
-// Placeholder images — swap these `url` values for real, properly licensed
-// photos (self-hosted or from a source you have rights to use) before this
-// goes anywhere public. Keeping the field populated now means the UI and
-// <img> layout can be built and tested immediately, instead of blocked on
-// sourcing final art. The previous version of this script left `images: []`
-// on every cat, which is why nothing rendered.
-function placeholderImage(seed, label) {
-  return {
-    url: `https://placehold.co/800x600/2c1e13/ede1c4?font=source-serif-pro&text=${encodeURIComponent(
-      label
-    )}`,
-    caption: `${label} — placeholder image, replace with a real photo`,
-  };
-}
-
 const cats = [
   {
     commonName: "Lion",
@@ -33,7 +18,12 @@ const cats = [
       "A lion's roar can be heard from as far as 8 km (5 miles) away.",
       "Cubs are born with spotted coats that fade as they mature.",
     ],
-    images: [placeholderImage("lion", "Lion")],
+    images: [
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/500px-020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg",
+        caption: "A lion in Serengeti National Park. Photo by Giles Laurent, via Wikimedia Commons — check the file page for the required attribution/license before public use.",
+      },
+    ],
   },
   {
     commonName: "Tiger",
@@ -48,7 +38,12 @@ const cats = [
       "Tigers are powerful swimmers, unlike most other cat species.",
       "A tiger can eat up to 34 kg (75 lb) of meat in a single sitting.",
     ],
-    images: [placeholderImage("tiger", "Tiger")],
+    images: [
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Bengal_tiger_%28Panthera_tigris_tigris%29_female_3_crop.jpg/960px-Bengal_tiger_%28Panthera_tigris_tigris%29_female_3_crop.jpg",
+        caption: "A female Bengal tiger, via Wikimedia Commons — check the file page for the required attribution/license before public use.",
+      },
+    ],
   },
   {
     commonName: "Jaguar",
@@ -63,7 +58,12 @@ const cats = [
       "They are excellent swimmers and often hunt in water.",
       "Their rosettes have small dots in the center, which distinguishes them from leopards.",
     ],
-    images: [placeholderImage("jaguar", "Jaguar")],
+    images: [
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Standing_jaguar.jpg",
+        caption: "A jaguar, via Wikimedia Commons — check the file page for the required attribution/license before public use.",
+      },
+    ],
   },
   {
     commonName: "Leopard",
@@ -78,7 +78,12 @@ const cats = [
       "It is the most widely distributed wild cat species on Earth.",
       "Leopard rosettes lack the central dot found in jaguar rosettes.",
     ],
-    images: [placeholderImage("leopard", "Leopard")],
+    images: [
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/African_leopard_male_%28cropped%29.jpg/500px-African_leopard_male_%28cropped%29.jpg",
+        caption: "A male African leopard, via Wikimedia Commons — check the file page for the required attribution/license before public use.",
+      },
+    ],
   },
   {
     commonName: "Snow Leopard",
@@ -93,7 +98,12 @@ const cats = [
       "Their long, thick tail is used for balance and can be wrapped around the body like a blanket.",
       "Unlike other Panthera cats, snow leopards can't roar due to the shape of their hyoid bone.",
     ],
-    images: [placeholderImage("snow-leopard", "Snow Leopard")],
+    images: [
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Irbis4.JPG/500px-Irbis4.JPG",
+        caption: "A snow leopard, via Wikimedia Commons — check the file page for the required attribution/license before public use.",
+      },
+    ],
   },
   {
     commonName: "Cheetah",
@@ -108,7 +118,12 @@ const cats = [
       "Their claws are semi-retractable, working like track spikes for grip at high speed.",
       "Unlike other big cats, cheetahs can purr but cannot roar.",
     ],
-    images: [placeholderImage("cheetah", "Cheetah")],
+    images: [
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Male_cheetah_facing_left_in_South_Africa.jpg/500px-Male_cheetah_facing_left_in_South_Africa.jpg",
+        caption: "A male cheetah in South Africa, via Wikimedia Commons — check the file page for the required attribution/license before public use.",
+      },
+    ],
   },
   {
     commonName: "Cougar",
@@ -123,7 +138,12 @@ const cats = [
       "It can leap as high as 5.5 meters (18 ft) vertically.",
       "Cougars can't roar, but produce an unsettling, high-pitched scream.",
     ],
-    images: [placeholderImage("cougar", "Cougar")],
+    images: [
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Mountain_Lion_in_Glacier_National_Park.jpg/500px-Mountain_Lion_in_Glacier_National_Park.jpg",
+        caption: "A mountain lion in Glacier National Park, via Wikimedia Commons — check the file page for the required attribution/license before public use.",
+      },
+    ],
   },
 ];
 
